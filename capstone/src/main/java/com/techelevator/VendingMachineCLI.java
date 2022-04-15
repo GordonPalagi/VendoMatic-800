@@ -3,6 +3,10 @@ package com.techelevator;
 import com.techelevator.view.Menu;
 import com.techelevator.view.VendingItems;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 public class VendingMachineCLI {
 
 	private static final String MAIN_MENU_OPTION_DISPLAY_ITEMS = "Display Vending Machine Items";
@@ -15,13 +19,19 @@ public class VendingMachineCLI {
 
 	private Menu menu;
 
+	//constructor
 	public VendingMachineCLI(Menu menu) {
 		this.menu = menu;
 	}
 
+	// starts running the program.
 	public void run() {
+		// while vendingOn...
 		while (vendingOn) {
 			String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
+			VendingItems client = new VendingItems();
+			client.assignItems();
+			System.out.println(client.getItemInventory());
 
 			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
 				// display vending machine items
@@ -47,6 +57,24 @@ public class VendingMachineCLI {
 			}
 		}
 	}
+
+//	public void assignItems() {
+//		try(Scanner scanner = new Scanner(new File("/Users/Gordon/meritamerica/module-1-capstone/capstone/vendingmachine.csv"))) {
+//			while(scanner.hasNextLine()) {
+//				String line = scanner.nextLine();
+//				Scanner parse = new Scanner(line);
+//				parse.useDelimiter("//|");
+//				VendingItems client = new VendingItems(parse.next(), parse.next(), parse.nextInt(), parse.next());
+//				System.out.println(client);
+////				sb = new StringBuilder(scanner.nextLine());
+////				sb.append(" items remaining: ").append(vendingItems.getItemInventory());
+//
+//			}
+//		} catch (FileNotFoundException e) {
+//			e.printStackTrace();
+//		}
+//	}
+
 
 	public static void main(String[] args) {
 		Menu menu = new Menu(System.in, System.out);
