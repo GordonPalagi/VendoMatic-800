@@ -1,4 +1,4 @@
-package com.techelevator.view;
+package com.techelevator;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,7 +14,7 @@ public class VendingItems {
     private String name;
     private double price;
     private String type;
-    List<VendingItems> limiter = new ArrayList<>();
+    private List<VendingItems> limiter = new ArrayList<>();
 
     // constructor
     public VendingItems(String vendingID, String name, double price, String type) {
@@ -26,15 +26,13 @@ public class VendingItems {
 
     public VendingItems() {}
 
-
-
     public void assignItems() {
             // we use a list to generalize the items within the constructor
             // also using a list will add flexibility, if items are rearranged later on
             // we needed a list to hold our objects
 
             // we use a try catch block because use a constructor within the while loop, which could cause an exception
-        try(Scanner fileScanner = new Scanner(new File("/Users/Gordon/meritamerica/module-1-capstone/capstone/vendingmachine.csv"))) {
+        try(Scanner fileScanner = new Scanner(new File("C:\\Users\\Morgan\\Desktop\\Repos\\Capstone\\module-1-capstone\\capstone\\vendingmachine.csv"))) {
 
             // while the file has the next line...
             while(fileScanner.hasNextLine()) {
@@ -60,6 +58,20 @@ public class VendingItems {
         }
     }
 
+    public void userSelection(String selection) {
+        for (VendingItems item: limiter) {
+            if (selection.equals(item.getVendingID())) {
+                item.dispense();
+                item.displayItem();
+            }
+        }
+    }
+
+    public void dispense() {
+        if (getItemInventory() == 0) {
+            setItemInventory(getItemInventory() - 1);
+        }
+    }
 
     // Scans file and adds item remaining variable
     public void displayInventory() {
@@ -68,7 +80,9 @@ public class VendingItems {
         }
     }
 
-
+    public void displayItem() {
+        System.out.println(getVendingID() + " " + getName() + " " + getPrice() + " " + getType() + " " + getItemInventory());
+    }
 
     // getters and setters
     public int getItemInventory() {
