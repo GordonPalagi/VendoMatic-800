@@ -14,6 +14,7 @@ public class VendingItems {
     private String name;
     private double price;
     private String type;
+    List<VendingItems> limiter = new ArrayList<>();
 
     // constructor
     public VendingItems(String vendingID, String name, double price, String type) {
@@ -23,15 +24,14 @@ public class VendingItems {
         this.type = type;
     }
 
-    public VendingItems() {
+    public VendingItems() {}
 
-    }
+
 
     public void assignItems() {
             // we use a list to generalize the items within the constructor
             // also using a list will add flexibility, if items are rearranged later on
             // we needed a list to hold our objects
-            List<VendingItems> limiter = new ArrayList<>();
 
             // we use a try catch block because use a constructor within the while loop, which could cause an exception
         try(Scanner fileScanner = new Scanner(new File("/Users/Gordon/meritamerica/module-1-capstone/capstone/vendingmachine.csv"))) {
@@ -63,22 +63,10 @@ public class VendingItems {
 
     // Scans file and adds item remaining variable
     public void displayInventory() {
-        try(Scanner scanner = new Scanner(new File("/Users/Gordon/meritamerica/module-1-capstone/capstone/vendingmachine.csv"))) {
-            while(scanner.hasNextLine()) {
-                StringBuilder sb;
-                sb = new StringBuilder(scanner.nextLine());
-                sb.append(" items remaining: ").append(getItemInventory());
-                System.out.println(sb);
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        for (VendingItems item : limiter) {
+            System.out.println(item.getVendingID() + " " + item.getName() + " " + item.getPrice() + " " + item.getType() + " " + item.getItemInventory());
         }
     }
-
-    // This method scans the csv file,
-//    public void buildingString() {
-//
-//    }
 
 
 

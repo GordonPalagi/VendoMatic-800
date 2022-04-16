@@ -1,10 +1,10 @@
 package com.techelevator;
 
 import com.techelevator.view.Menu;
+import com.techelevator.view.MoneyInputException;
 import com.techelevator.view.VendingItems;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class VendingMachineCLI {
@@ -12,11 +12,14 @@ public class VendingMachineCLI {
 	private static final String MAIN_MENU_OPTION_DISPLAY_ITEMS = "Display Vending Machine Items";
 	private static final String MAIN_MENU_OPTION_PURCHASE = "Purchase";
 	private static final String MAIN_MENU_OPTION_EXIT = "Exit";
+	private static final String FEED_MONEY = "Feed Money";
+	private static final String SELECT_PRODUCT = "Select Product";
+	private static final String FINISH_TRANSACTION = "Finish Transaction";
 	private static final String[] MAIN_MENU_OPTIONS = { MAIN_MENU_OPTION_DISPLAY_ITEMS, MAIN_MENU_OPTION_PURCHASE, MAIN_MENU_OPTION_EXIT };
+	private static final String[] PURCHASE_MENU_OPTIONS = {FEED_MONEY, SELECT_PRODUCT, FINISH_TRANSACTION};
 	private boolean vendingOn = true;
 	VendingItems vendingItems = new VendingItems();
-
-
+	private static int currentMoneyProvided = 0;
 	private Menu menu;
 
 	//constructor
@@ -31,26 +34,33 @@ public class VendingMachineCLI {
 			String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
 			VendingItems client = new VendingItems();
 			client.assignItems();
-			System.out.println(client.getItemInventory());
 
 			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
 				// display vending machine items
-				vendingItems.displayInventory();
+				client.displayInventory();
 			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
 				// do purchase
+				String purchaseChoice = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
+				if (purchaseChoice.equals(FEED_MONEY)){
+					try(Scanner moneyInput = new Scanner(System.in)) {
+						System.out.println("Please insert money");
+						System.out.println("Acceptable bills: $1, $2, $5, $10");
+						currentMoneyProvided = moneyInput.nextInt();
+					} catch(MoneyInputException e) {
+//						throw new MoneyInputException("Please enter an acceptable bill: $1, $2, $5, $10");
+					} catch(InputMismatchException e) {
+						System.out.println("Please enter an acceptable bill: $1, $2, $5, $10");
+					}
+				}
+				else if (purchaseChoice.equals(SELECT_PRODUCT)) {
+					client.displayInventory();
+					Scanner code = new Scanner(System.in);
+					System.out.println("Enter code for selected snack");
+					String productChoice = code.next();
+				}
+				else if (purchaseChoice.equals(FINISH_TRANSACTION)) {
 
-				// possible do...while loop. it would be checking if the user wants to continue
-				// might want to be false AFTER purchase?
-				// this is where we create the second menu
-				//  >```
-				//    >(1) Feed Money  // do we need a money class? money class extending from menu
-				//    >(2) Select Product
-				//    >(3) Finish Transaction // maybe vendingOn true again after finishing transaction
-				//    >
-				//    > Current Money Provided: $2.00
-				//    >```
-				//
-
+				}
 			} else if (choice.equals(MAIN_MENU_OPTION_EXIT)) {
 				System.out.println("Hi your refrigerator is... not running. Congrats! GoodBye!");
 				vendingOn = false;
@@ -58,23 +68,9 @@ public class VendingMachineCLI {
 		}
 	}
 
-//	public void assignItems() {
-//		try(Scanner scanner = new Scanner(new File("/Users/Gordon/meritamerica/module-1-capstone/capstone/vendingmachine.csv"))) {
-//			while(scanner.hasNextLine()) {
-//				String line = scanner.nextLine();
-//				Scanner parse = new Scanner(line);
-//				parse.useDelimiter("//|");
-//				VendingItems client = new VendingItems(parse.next(), parse.next(), parse.nextInt(), parse.next());
-//				System.out.println(client);
-////				sb = new StringBuilder(scanner.nextLine());
-////				sb.append(" items remaining: ").append(vendingItems.getItemInventory());
-//
-//			}
-//		} catch (FileNotFoundException e) {
-//			e.printStackTrace();
-//		}
-//	}
-
+	private void displayCurrentMoney() {
+		System.out.println("Current Money Provided: " + currentMoneyProvided);
+	}
 
 	public static void main(String[] args) {
 		Menu menu = new Menu(System.in, System.out);
