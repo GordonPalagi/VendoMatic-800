@@ -25,6 +25,7 @@ public class VendingMachineCLI {
 
 	// starts running the program.
 	public void run() {
+
 		// while vendingOn...
 		while (true) {
 			String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
@@ -32,37 +33,14 @@ public class VendingMachineCLI {
 			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
 				// display vending machine items
 				client.displayInventory();
-			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
+
+			}
+			else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
 				// do purchase
 				purchase.displayPurchaseMenu(client);
-//				if (purchaseChoice.equals(FEED_MONEY)){
-//					try(Scanner moneyInput = new Scanner(System.in)) {
-//						System.out.println("Please insert money");
-//						System.out.println("Acceptable bills: $1, $2, $5, $10");
-//						currentMoneyProvided = moneyInput.nextInt();
-////					} catch(MoneyInputException e) {
-////						throw new MoneyInputException("Please enter an acceptable bill: $1, $2, $5, $10");
-//					} catch(InputMismatchException e) {
-//						System.out.println("Please enter an acceptable bill: $1, $2, $5, $10");
-//					}
-//				}
-//				else if (purchaseChoice.equals(SELECT_PRODUCT)) {
-//					client.displayInventory();
-//					Scanner code = new Scanner(System.in);
-//					System.out.println("Enter code for selected snack");
-//					String productChoice = code.next();
-//
-//					for(VendingItems item: client.limiter) {
-//						if (productChoice.equals(item.getVendingID())) {
-//							item.dispense();
-//							item.displayItem();
-//						}
-//					}
-//				}
-//				else if (purchaseChoice.equals(FINISH_TRANSACTION)) {
-//
-//				}
-			} else if (choice.equals(MAIN_MENU_OPTION_EXIT)) {
+
+			}
+			else if (choice.equals(MAIN_MENU_OPTION_EXIT)) {
 				System.out.println("Hi your refrigerator is... not running. Congrats! GoodBye!");
 				break;
 			}

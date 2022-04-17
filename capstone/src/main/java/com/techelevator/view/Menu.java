@@ -47,12 +47,7 @@ public class Menu {
 			int optionNum = i + 1;
 			out.println(optionNum + ") " + options[i]);
 		}
-		out.println("test");
 		out.print(System.lineSeparator() + "Please choose an option >>> ");
 		out.flush();
 	}
-	//    public void dispenseItem(String vendingID) {
-	//
-	//    }
-
 }

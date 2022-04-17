@@ -14,7 +14,8 @@ public class VendingItems {
     private String name;
     private double price;
     private String type;
-    private List<VendingItems> limiter = new ArrayList<>();
+    private String sound;
+    private List<VendingItems> listOfItems = new ArrayList<>();
 
     // constructor
     public VendingItems(String vendingID, String name, double price, String type) {
@@ -24,15 +25,21 @@ public class VendingItems {
         this.type = type;
     }
 
+    // empty constructor
     public VendingItems() {}
 
+
+    // assignItems is doing a lot. We should break it down to one objective per method
+
+    // assignItems segments the lines within the CSV file. This allows us to use .next() to allow the
+    // items to later be changed.
     public void assignItems() {
             // we use a list to generalize the items within the constructor
             // also using a list will add flexibility, if items are rearranged later on
             // we needed a list to hold our objects
 
             // we use a try catch block because use a constructor within the while loop, which could cause an exception
-        try(Scanner fileScanner = new Scanner(new File("C:\\Users\\Morgan\\Desktop\\Repos\\Capstone\\module-1-capstone\\capstone\\vendingmachine.csv"))) {
+        try(Scanner fileScanner = new Scanner(new File("capstone/vendingmachine.csv"))) {
 
             // while the file has the next line...
             while(fileScanner.hasNextLine()) {
@@ -51,7 +58,7 @@ public class VendingItems {
                 // we use next() because the line will be split by the delimiter, via pipe character
                 // so we need to call the next item, after the delimiter breaks/pauses the line.
                 // We also add the constructor to our list
-                limiter.add(new VendingItems(parseLine.next(), parseLine.next(), parseLine.nextDouble(), parseLine.next()));
+                listOfItems.add(new VendingItems(parseLine.next(), parseLine.next(), parseLine.nextDouble(), parseLine.next()));
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -59,7 +66,7 @@ public class VendingItems {
     }
 
     public void userSelection(String selection) {
-        for (VendingItems item: limiter) {
+        for (VendingItems item: listOfItems) {
             if (selection.equals(item.getVendingID())) {
                 item.dispense();
                 item.displayItem();
@@ -67,21 +74,39 @@ public class VendingItems {
         }
     }
 
+    // Dispensing won't go into negative
     public void dispense() {
-        if (getItemInventory() == 0) {
+        if (getItemInventory() != 0) {
             setItemInventory(getItemInventory() - 1);
         }
     }
 
     // Scans file and adds item remaining variable
     public void displayInventory() {
-        for (VendingItems item : limiter) {
+        for (VendingItems item : listOfItems) {
             System.out.println(item.getVendingID() + " " + item.getName() + " " + item.getPrice() + " " + item.getType() + " " + item.getItemInventory());
         }
     }
 
     public void displayItem() {
-        System.out.println(getVendingID() + " " + getName() + " " + getPrice() + " " + getType() + " " + getItemInventory());
+        System.out.println(getName() + " " + getPrice() + " " + getType() + " " + getItemInventory());
+        switch(getType()) {
+            case "Chip":
+                System.out.println("Crunch Crunch, Yum!\n");
+                break;
+            case "Candy":
+                System.out.println("Munch Munch, Yum!\n");
+                break;
+            case "Drink":
+                System.out.println("Glug Glug, Yum!\n");
+                break;
+            case "Gum":
+                System.out.println("Chew Chew, Yum!\n");
+                break;
+            default:
+                System.out.println("");
+                break;
+        }
     }
 
     // getters and setters
@@ -123,6 +148,16 @@ public class VendingItems {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public List<VendingItems> getListOfItems() {return listOfItems;}
+
+    public String getSound() {
+        return sound;
+    }
+
+    public void setSound(String sound) {
+        this.sound = sound;
     }
 
 
