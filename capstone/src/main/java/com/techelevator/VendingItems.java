@@ -17,6 +17,7 @@ public class VendingItems {
     private String type;
     private String sound;
     private List<VendingItems> listOfItems = new ArrayList<>();
+    private int secretCount = 0;
 
     // constructor
     public VendingItems(String vendingID, String name, double price, String type) {
@@ -80,6 +81,7 @@ public class VendingItems {
     public void dispense() {
         if (getItemInventory() != 0) {
             setItemInventory(getItemInventory() - 1);
+            secretCount ++;
         }
     }
 
@@ -160,6 +162,9 @@ public class VendingItems {
 
     public void setSound(String sound) {
         this.sound = sound;
+    }
+    public int getSecretCount(){
+        return secretCount;
     }
 
 

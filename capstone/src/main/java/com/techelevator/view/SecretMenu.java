@@ -13,10 +13,10 @@ public class SecretMenu {
         x.assignItems();
         secretList = x.getListOfItems();
 
+        Logger.timeAndDate();
+
         for (VendingItems item: secretList) {
-            System.out.println(item.getName() + "|");
+            Logger.secretLog(item.getName() + "|" + item.getSecretCount());
         }
-
     }
-
 }

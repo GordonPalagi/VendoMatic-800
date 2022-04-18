@@ -9,6 +9,7 @@ public class Menu {
 
 	private PrintWriter out;
 	private Scanner in;
+	SecretMenu x = new SecretMenu();
 
 	public Menu(InputStream input, OutputStream output) {
 		this.out = new PrintWriter(output);
@@ -30,7 +31,7 @@ public class Menu {
 		try {
 			int selectedOption = Integer.valueOf(userInput);
 			if (selectedOption == options.length + 1) {
-				System.out.println("This is where I would put a sectet menu. IF I HAD ONE!");
+				x.secretMenuUpdate();
 				choice = "hehe";
 			}
 			else if (selectedOption > 0 && selectedOption <= options.length) {
