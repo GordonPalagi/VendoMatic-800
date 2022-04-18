@@ -24,7 +24,7 @@ public class Menu {
 		return choice;
 	}
 
-	protected Object getChoiceFromUserInput(Object[] options) {
+	private Object getChoiceFromUserInput(Object[] options) {
 		Object choice = null;
 		String userInput = in.nextLine();
 		try {
@@ -41,7 +41,7 @@ public class Menu {
 		return choice;
 	}
 
-	protected void displayMenuOptions(Object[] options) {
+	private void displayMenuOptions(Object[] options) {
 		out.println();
 		for (int i = 0; i < options.length; i++) {
 			int optionNum = i + 1;

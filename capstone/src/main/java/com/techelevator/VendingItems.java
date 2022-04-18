@@ -39,7 +39,7 @@ public class VendingItems {
             // we needed a list to hold our objects
 
             // we use a try catch block because use a constructor within the while loop, which could cause an exception
-        try(Scanner fileScanner = new Scanner(new File("capstone/vendingmachine.csv"))) {
+        try(Scanner fileScanner = new Scanner(new File("/Users/Gordon/meritamerica/repos/Capstone-Project/module-1-capstone/capstone/vendingmachine.csv"))) {
 
             // while the file has the next line...
             while(fileScanner.hasNextLine()) {

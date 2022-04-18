@@ -3,6 +3,7 @@ package com.techelevator;
 import com.techelevator.view.Menu;
 import com.techelevator.view.PurchaseMenu;
 
+import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -33,12 +34,14 @@ public class VendingMachineCLI {
 			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
 				// display vending machine items
 				client.displayInventory();
-
 			}
 			else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
 				// do purchase
-				purchase.displayPurchaseMenu(client);
-
+				try {
+					purchase.displayPurchaseMenu(client);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 			else if (choice.equals(MAIN_MENU_OPTION_EXIT)) {
 				System.out.println("Hi your refrigerator is... not running. Congrats! GoodBye!");
