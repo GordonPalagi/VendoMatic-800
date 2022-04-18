@@ -7,8 +7,8 @@ import java.text.NumberFormat;
 
 public class Logger {
 
-    static String LOG_FILE_PATH = "/Users/Gordon/meritamerica/repos/Capstone-Project/module-1-capstone/capstone/src/main/java/com/techelevator/view/log.txt";
-    private static NumberFormat currency = NumberFormat.getCurrencyInstance();
+    static String LOG_FILE_PATH = "log.txt";
+    private static final NumberFormat CURRENCY = NumberFormat.getCurrencyInstance();
 
     private static String getCurrentTime() {
         SimpleDateFormat currentDate = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss a");
@@ -16,11 +16,11 @@ public class Logger {
         return currentDate.format(now);
     }
 
-    public static void log(String event, double startBalance, double endBalance) throws IOException {
+    public static void log(String event, double startBalance, double endBalance) {
         File filePathToLog = new File(LOG_FILE_PATH);
         try(PrintWriter print = new PrintWriter(new FileWriter(filePathToLog, true))) {
-            print.println(getCurrentTime() + " " + event + " " + currency.format(startBalance)
-            + " " + currency.format(endBalance));
+            print.println(getCurrentTime() + " " + event + " " + CURRENCY.format(startBalance)
+            + " " + CURRENCY.format(endBalance));
             print.flush();
         } catch (IOException e) {
             System.out.println(e.getMessage());
@@ -31,6 +31,8 @@ public class Logger {
 }
 
 /*
+this gets the user directory
+System.getproperty("user.dir")
 we need a method that logs the current time and date // done
 
 need a method specific for the event

@@ -2,7 +2,6 @@ package com.techelevator;
 
 import com.techelevator.view.Menu;
 import com.techelevator.view.PurchaseMenu;
-
 import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -31,20 +30,20 @@ public class VendingMachineCLI {
 		while (true) {
 			String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
 
+			if (choice.equals("4")) {
+				System.out.println("worked");
+			}
+
 			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
 				// display vending machine items
 				client.displayInventory();
 			}
 			else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
 				// do purchase
-				try {
 					purchase.displayPurchaseMenu(client);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
 			}
 			else if (choice.equals(MAIN_MENU_OPTION_EXIT)) {
-				System.out.println("Hi your refrigerator is... not running. Congrats! GoodBye!");
+				System.out.println("Thank you for choosing Umbrella Corp");
 				break;
 			}
 		}

@@ -29,7 +29,11 @@ public class Menu {
 		String userInput = in.nextLine();
 		try {
 			int selectedOption = Integer.valueOf(userInput);
-			if (selectedOption > 0 && selectedOption <= options.length) {
+			if (selectedOption == options.length + 1) {
+				System.out.println("This is where I would put a sectet menu. IF I HAD ONE!");
+				choice = "hehe";
+			}
+			else if (selectedOption > 0 && selectedOption <= options.length) {
 				choice = options[selectedOption - 1];
 			}
 		} catch (NumberFormatException e) {

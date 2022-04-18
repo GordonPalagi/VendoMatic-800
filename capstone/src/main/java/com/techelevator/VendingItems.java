@@ -9,7 +9,8 @@ import java.util.regex.Pattern;
 
 public class VendingItems {
 
-    private int itemInventory = 5;
+    private final int REFILL = 5;
+    private int itemInventory;
     private String vendingID = " "; // supposed to be an empty string
     private String name;
     private double price;
@@ -23,6 +24,7 @@ public class VendingItems {
         this.name = name;
         this.price = price;
         this.type = type;
+        this.itemInventory = REFILL;
     }
 
     // empty constructor
@@ -39,7 +41,7 @@ public class VendingItems {
             // we needed a list to hold our objects
 
             // we use a try catch block because use a constructor within the while loop, which could cause an exception
-        try(Scanner fileScanner = new Scanner(new File("/Users/Gordon/meritamerica/repos/Capstone-Project/module-1-capstone/capstone/vendingmachine.csv"))) {
+        try(Scanner fileScanner = new Scanner(new File("capstone/vendingmachine.csv"))) {
 
             // while the file has the next line...
             while(fileScanner.hasNextLine()) {
