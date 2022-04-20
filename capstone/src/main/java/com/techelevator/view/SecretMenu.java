@@ -1,7 +1,6 @@
 package com.techelevator.view;
 
 import com.techelevator.VendingItems;
-
 import java.util.ArrayList;
 import java.util.List;
 
