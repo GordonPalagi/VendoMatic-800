@@ -22,7 +22,7 @@ public class PurchaseMenu {
             System.out.println("(1) Feed Money");
             System.out.println("(2) Select Product");
             System.out.println("(3) Finish Transaction");
-            System.out.println("\nCurrent Money Provided: " + CURRENCY.format(moneyProvided));
+            System.out.println("\nCurrent Balance: " + CURRENCY.format(moneyProvided));
 
             Scanner userInput = new Scanner(System.in);
             String userSelection = userInput.nextLine();
@@ -50,6 +50,8 @@ public class PurchaseMenu {
                 Logger.log(event, startBalance, endBalance);
 
                 break;
+            } else {
+                System.out.println("Unknown selection try again\n");
             }
         }
     }
@@ -129,8 +131,8 @@ public class PurchaseMenu {
         divisible = moneyProvided / Coins.NICKEL.VALUE;
         divisible = Math.floor(divisible);
         moneyProvided -= divisible * Coins.NICKEL.VALUE;
-        System.out.println("Change dispensed: " + divisible + " " + Coins.NICKEL.NAME);
-        System.out.println(CURRENCY.format(moneyProvided));
+        System.out.println("Change dispensed: " + divisible + " " + Coins.NICKEL.NAME + "\n");
+        System.out.println("Current Balalacne " + CURRENCY.format(moneyProvided));
 
         return moneyProvided;
     }

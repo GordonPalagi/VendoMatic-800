@@ -28,27 +28,52 @@ public class VendingItems {
         this.itemInventory = REFILL;
     }
 
+    // empty constructor
     public VendingItems() {}
+
+
+    // assignItems is doing a lot. We should break it down to one objective per method
 
     // assignItems segments the lines within the CSV file. This allows us to use .next() to allow the
     // items to later be changed.
     public void assignItems() {
+            // we use a list to generalize the items within the constructor
+            // also using a list will add flexibility, if items are rearranged later on
+            // we needed a list to hold our objects
 
-        try(Scanner fileScanner = new Scanner(new File("/Users/Gordon/meritamerica/repos/module-1-capstone/capstone/vendingmachine.csv"))) {
+            // we use a try catch block because use a constructor within the while loop, which could cause an exception
+        try(Scanner fileScanner = new Scanner(new File("capstone/vendingmachine.csv"))) {
 
+            // while the file has the next line...
             while(fileScanner.hasNextLine()) {
 
+                // (line = assignment) assigns the current line of the while loop and then updates for each loop
                 String line = fileScanner.nextLine();
 
+                // pass the line to the scanner for each loop in order to parse through the constructor
+                // another scanner is necessary because the original scanner isn't done scanning
+                // we then scan the individual line in order to obtain the specific properties of our VendingItem objects
                 Scanner parseLine = new Scanner(line);
 
                 // the delimiter identifies the pipe character, so we can split the line
                 parseLine.useDelimiter(Pattern.quote("|"));
 
+                // we use next() because the line will be split by the delimiter, via pipe character
+                // so we need to call the next item, after the delimiter breaks/pauses the line.
+                // We also add the constructor to our list
                 listOfItems.add(new VendingItems(parseLine.next(), parseLine.next(), parseLine.nextDouble(), parseLine.next()));
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void userSelection(String selection) {
+        for (VendingItems item: listOfItems) {
+            if (selection.equals(item.getVendingID())) {
+                item.dispense();
+                item.displayItem();
+            }
         }
     }
 

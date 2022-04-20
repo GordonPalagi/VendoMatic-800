@@ -7,8 +7,8 @@ import java.text.NumberFormat;
 
 public class Logger {
 
-    static String logFilePath = "/Users/Gordon/meritamerica/repos/module-1-capstone/capstone/log.txt";
-    static String logSalesReport = "/Users/Gordon/meritamerica/repos/module-1-capstone/capstone/src/main/java/com/techelevator/view/salesReport.txt";
+    static String logFilePath = "capstone/log.txt";
+    static String logSalesReport = "salesReport.txt";
     private static final NumberFormat CURRENCY = NumberFormat.getCurrencyInstance();
 
     private static String getCurrentTime() {
