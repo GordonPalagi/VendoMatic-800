@@ -14,16 +14,13 @@ public class VendingMachineCLI {
 	private VendingItems items = new VendingItems();
 	private PurchaseMenu purchase = new PurchaseMenu();
 
-	//constructor
 	public VendingMachineCLI(Menu menu) {
 		this.menu = menu;
 		items.assignItems();
 	}
 
-	// starts running the program.
 	public void run() {
 
-		// while vendingOn...
 		while (true) {
 			String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
 

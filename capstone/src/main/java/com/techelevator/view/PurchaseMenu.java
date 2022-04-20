@@ -24,26 +24,22 @@ public class PurchaseMenu {
             System.out.println("(3) Finish Transaction");
             System.out.println("\nCurrent Money Provided: " + CURRENCY.format(moneyProvided));
 
-            // scans for the users choice...
             Scanner userInput = new Scanner(System.in);
             String userSelection = userInput.nextLine();
 
-            // if the selection equals 1...
             if (userSelection.equals("1")) {
 
-                    feedMoney(userInput);
-            }
-            else if (userSelection.equals("2")) { // if user selects product...
+                feedMoney(userInput);
+            } else if (userSelection.equals("2")) { // if user selects product...
                 startBalance = moneyProvided;
-                vendingItems.displayInventory();    // we display the inventory.
+                vendingItems.displayInventory();
 
                 customerSelection(vendingItems);
 
                 endBalance = moneyProvided;
                 Logger.log(event, startBalance, endBalance);
 
-            }
-            else if (userSelection.equals("3")) {
+            } else if (userSelection.equals("3")) {
 
                 startBalance = moneyProvided;
                 event = "GIVE CHANGE: ";
@@ -62,12 +58,10 @@ public class PurchaseMenu {
         boolean addMore = true;
         event = "FEED_MONEY: ";
 
-        // Do while loop is here because we want the list to print out first and the user can put in money multiple times
         do {
             startBalance = moneyProvided;
             System.out.println("Acceptable bills: $1, $2, $5, $10");
             System.out.println("Please insert money: ");
-            // variable for the total amount of money provided
             try {
                 double temp = userInput.nextDouble();
                 if (temp == 0 || temp == 1 || temp == 2 || temp == 5 || temp == 10) {
@@ -78,10 +72,10 @@ public class PurchaseMenu {
                     // the same scanner asks for Y/N... if no, it goes back to the purchase menu while loop.
                     System.out.println("Would you like to add more money? (Y/N)");
                     if (userInput.next().equalsIgnoreCase("n")) {
-                        addMore = false;    // if user selects 'N'... this will break the loop.
-                        }
+                        addMore = false;
                     }
-                } catch (InputMismatchException e) {
+                }
+            } catch (InputMismatchException e) {
                 addMore = false;
                 System.out.println("The bill you enter is invalid\n");
             }
@@ -95,21 +89,19 @@ public class PurchaseMenu {
         System.out.println("Enter code for selected snack");
         String productChoice = code.next(); // this will equal the vendingID... (A1, A2, B3... etc)
 
-            for (VendingItems item : vendingItems.getListOfItems()) {
-                // check if the ID is correct.
-                if (productChoice.equalsIgnoreCase(item.getVendingID())) {
-                    tempObj = item;
-                }
+        for (VendingItems item : vendingItems.getListOfItems()) {
+            // check if the ID is correct.
+            if (productChoice.equalsIgnoreCase(item.getVendingID())) {
+                tempObj = item;
             }
+        }
 
         try {
             if (tempObj.getItemInventory() == 0) {
                 System.out.println("Sold out!");
-            }
-            else  if (tempObj.getPrice() > moneyProvided) {
+            } else if (tempObj.getPrice() > moneyProvided) {
                 System.out.println("Insufficient funds");
-            }
-            else {
+            } else {
                 tempObj.dispense();
                 tempObj.displayItem();
                 moneyProvided -= tempObj.getPrice();
@@ -142,32 +134,7 @@ public class PurchaseMenu {
 
         return moneyProvided;
     }
-
-    // this method dispenses the left-over money from TotalMoneyProvided (subtracting price of any selected products)
-        // start with a string builder to tell the user how much change was dispensed.
-        // a string builder outside the for loop is necessary because we want to add values to the string dynamically.
-//        public double changeDispenser(double coin) {
-//            totalMoneyProvided *= 100;
-//            double divisible = totalMoneyProvided / coin;
-//            divisible = Math.floor(divisible);
-//            totalMoneyProvided -= divisible * coin;
-//            System.out.println("");
-//
-//            return totalMoneyProvided;
-//        }
 }
-
-
-/*
-each time a button is pressed we need to log the time and date
-
-per button we need to be specific
-    FEED_ME_BUTTON_PRESSED - each time money is given it needs to be logged
-    DISPENSE_BUTTON_PRESSED - each time an item is dispensed, it needs to log the name of the item,
-                              the ID of the item, the current balance before and after
-    CHANGE_GIVEN_BUTTON_PRESSED - Needs to log the current balance before and after
-
- */
 
 
 

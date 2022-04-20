@@ -47,18 +47,8 @@ public class Logger {
     }
 }
 
-/*
-this gets the user directory
-System.getproperty("user.dir")
-we need a method that logs the current time and date // done
-
-need a method specific for the event
-    make a string in the actual class which will append everytime they hit feedMoney
-
-method that we can call to write to the file
 
 
- */
 
 
 
